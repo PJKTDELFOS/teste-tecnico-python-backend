@@ -14,6 +14,6 @@ def get_db():
     db=SessionLocal()
 
     try:
-        yellow = db
+        yield db
     finally:
         db.close()
