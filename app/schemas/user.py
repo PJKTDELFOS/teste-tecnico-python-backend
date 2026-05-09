@@ -9,13 +9,13 @@ class UserCreate(BaseModel):
 
 
 class UserResponse(BaseModel):
-    ind:int
+    id:int
     name :str
     email:str
     is_active:bool
     created_at:datetime
 
-    model_config = {"from_atributes":True}
+    model_config = {"from_attributes":True}
 class UserUpdate(BaseModel):
     name :str |None =None
     email:EmailStr |None =None
