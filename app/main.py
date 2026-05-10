@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import users,auth,sessions,logs
+from app.routers import users,auth,sessions,comments
 
 
 app=FastAPI(

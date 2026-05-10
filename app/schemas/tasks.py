@@ -7,9 +7,9 @@ class TaskCreate(BaseModel):
     tipo: TipoTask
 
 class TaskClose(BaseModel):
-    nota: int
+    nivel_foco: int
 
-    @field_validator("nota")
+    @field_validator("nivel_foco")
     @classmethod
     def valida_nota(cls, v):
         if not (1 <= v <= 5):
@@ -17,9 +17,9 @@ class TaskClose(BaseModel):
         return v
 
 class TaskUpdate(BaseModel):
-    nota: int | None = None
+    nivel_foco: int | None = None
 
-    @field_validator("nota")
+    @field_validator("nivel_foco")
     @classmethod
     def valida_nota(cls, v):
         if v is not None and not (1 <= v <= 5):
@@ -30,7 +30,7 @@ class TaskResponse(BaseModel):
     id: str
     titulo: str
     tipo: TipoTask
-    nota: int | None
+    nivel_foco: int | None
     opened_at: datetime
     closed_at: datetime | None
 
