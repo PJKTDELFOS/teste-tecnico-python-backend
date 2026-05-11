@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import users,auth,sessions,comments
+from app.routers import users,auth,sessions,tasks,comments
 
 
 app=FastAPI(
@@ -11,7 +11,10 @@ app=FastAPI(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(sessions.router)
-app.include_router(logs.router)
+app.include_router(tasks.router)
+app.include_router(comments.router)
+
+
 
 
 @app.get('/health')

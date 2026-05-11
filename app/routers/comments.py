@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db_manager import get_db
 from app.models.user import User
-from app.models.session import Session as SessionModel, SessionStatus
+from app.models.session import Session as SessionModel
 from app.models.tasks import Task
 from app.models.comentarios import Comentario
 from app.schemas.comments import ComentarioCreate, ComentarioResponse
 from app.core.dependencies import get_current_user
 
-router = APIRouter(prefix="/tasks", tags=["comentarios"])
+router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 def get_task_do_usuario(task_id: str, current_user: User, db: Session) -> Task:
     task = db.query(Task).join(SessionModel).filter(
@@ -30,7 +30,6 @@ def create_comentario(
     current_user: User = Depends(get_current_user)
 ):
     task = get_task_do_usuario(task_id, current_user, db)
-
     comentario = Comentario(
         task_id=task.id,
         titulo=data.titulo,
