@@ -9,7 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.teste_python/Scripts" />
       <excludeFolder url="file://$MODULE_DIR$/.teste_python/include" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.14 (teste-tecnico-python-backend)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.12 virtualenv at C:\Users\Pichau\Desktop\PROJETOS\teste-tecnico-python-backend\teste_backend (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
