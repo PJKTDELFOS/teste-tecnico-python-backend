@@ -84,6 +84,23 @@ Acesse `http://localhost:8000/docs` para a documentação interativa Swagger.
 > investigada. **Os endpoints funcionam corretamente** — apenas a exibição visual
 > está afetada. Para verificar o funcionamento, utilize o TestClient ou ferramentas
 > como Insomnia/Postman.
+> 
+> > ⚠️ **Nota sobre o Register pelo Swagger**: O endpoint `POST /auth/register` está
+> retornando erro 500 quando chamado diretamente pelo Swagger UI. O problema está
+> sendo investigado e tudo aponta para um conflito de versão do `bcrypt` com o
+> processo do uvicorn — o servidor carrega o bcrypt antigo em memória mesmo após
+> a atualização para a versão 4.0.1. **O endpoint funciona corretamente** quando
+> testado via TestClient, Insomnia ou Postman. Para testar o register durante
+> o desenvolvimento, utilize:
+> ```bash
+> python -c "
+> from fastapi.testclient import TestClient
+> from app.main import app
+> client = TestClient(app)
+> r = client.post('/auth/register', json={'name': 'seu_nome', 'email': 'seu@email.com', 'password': 'senha'})
+> print(r.status_code, r.json())
+> "
+> ```
 
 ## Endpoints Disponíveis
 
