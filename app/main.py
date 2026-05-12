@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from app.routers import users,auth,sessions,tasks,comments
+from app.routers import users,auth,sessions
+from app.routers.task_router import comments_router, task_router
 
 
 app=FastAPI(
@@ -11,9 +12,8 @@ app=FastAPI(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(sessions.router)
-app.include_router(tasks.router)
-app.include_router(comments.router)
-
+app.include_router(task_router)
+app.include_router(comments_router)
 
 
 

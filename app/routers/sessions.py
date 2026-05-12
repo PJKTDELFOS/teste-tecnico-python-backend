@@ -4,9 +4,9 @@ from datetime import datetime
 from app.db_manager import get_db
 from app.models.user import User
 from app.models.session import Session as SessionModel, SessionStatus
-from app.models.tasks import Task
 from app.schemas.session import SessionResponse
 from app.core.dependencies import get_current_user
+from app.models.tasks_models import Task
 
 router = APIRouter(prefix="/sessions", tags=["sessions"])
 

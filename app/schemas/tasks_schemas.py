@@ -1,13 +1,15 @@
 from pydantic import BaseModel, field_validator
 from datetime import datetime
-from app.models.tasks import TipoTask
+from app.models.tasks_models import TipoTask
 
 class TaskCreate(BaseModel):
     titulo: str
     tipo: TipoTask
+    tempo_minutos: int | None = None
 
 class TaskClose(BaseModel):
     nivel_foco: int
+    tempo_minutos: int | None = None
 
     @field_validator("nivel_foco")
     @classmethod

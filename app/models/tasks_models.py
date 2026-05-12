@@ -21,6 +21,7 @@ class Task(Base):
     tipo=Column(Enum(TipoTask), nullable=False)
     opened_at=Column(DateTime,default=datetime.utcnow,nullable=False)
     closed_at=Column(DateTime,nullable=True)
+    tempo_minutos = Column(Integer, nullable=True)
 
 
     __table_args__=(

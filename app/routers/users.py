@@ -5,6 +5,11 @@ from app.models.user import User
 from app.schemas.user import UserResponse, UserUpdate
 from app.core.security import hash_password
 from app.core.dependencies import get_current_user
+from app.models.tasks_models import Task
+from app.models.session import Session as SessionModel
+from sqlalchemy import func
+
+
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -42,3 +47,43 @@ def delete_me(
 ):
     db.delete(current_user)
     db.commit()
+
+
+
+@router.get("/me/diagnostico-produtividade")
+def diagnostico_produtividade(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    tasks = db.query(Task).join(SessionModel).filter(
+        SessionModel.user_id == current_user.id,
+        Task.nivel_foco != None
+    ).all()
+
+    if not tasks:
+        return {
+            "total_tasks": 0,
+            "media_nivel_foco": None,
+            "tempo_total_minutos": 0,
+            "feedback": "Nenhuma tarefa registrada ainda."
+        }
+
+    total = len(tasks)
+    media = sum(t.nivel_foco for t in tasks) / total
+    tempo_total = sum(t.tempo_minutos for t in tasks if t.tempo_minutos)
+
+    if media < 2:
+        feedback = "Pausas mais longas e menos notificações."
+    elif media < 3:
+        feedback = "Tente blocos de foco de 25 minutos com a técnica Pomodoro."
+    elif media < 4:
+        feedback = "Bom ritmo! Mantenha o ambiente organizado."
+    else:
+        feedback = "Você está em uma maratona produtiva de alto nível!"
+
+    return {
+        "total_tasks": total,
+        "media_nivel_foco": round(media, 2),
+        "tempo_total_minutos": tempo_total,
+        "feedback": feedback
+    }

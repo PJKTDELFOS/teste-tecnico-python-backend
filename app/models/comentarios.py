@@ -17,4 +17,4 @@ class Comentario(Base):
     conteudo=Column(String(1000),nullable=False)
     created_at=Column(DateTime,default=datetime.utcnow,nullable=False)
 
-    task=relationship("Task",back_populates="comentarios")
+    task=relationship("Task", back_populates="comments")
